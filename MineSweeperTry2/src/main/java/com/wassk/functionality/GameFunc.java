@@ -44,7 +44,7 @@ public class GameFunc {
         while (minedFields <= maxMines) {
             int line = random.nextInt(maxSide);
             int col = random.nextInt(maxSide);
-            if (field[line][col] != new GameBoard(true) && field[line][col].isExplored() == false) {
+            if (field[line][col] != new GameBoard(true) && !field[line][col].isExplored()) {
                 field[line][col] = new GameBoard(true);
                 minedFields++;
             }
@@ -59,7 +59,6 @@ public class GameFunc {
         return destroyed;
     }
 
-    // User info how to enter coordinates
 //    public void displayUserInformation() {
 //        System.out.println("x: line number");
 //        System.out.println("y: column number\n");
@@ -107,17 +106,14 @@ public class GameFunc {
         }
         return false;
     }
-// Will mark a field as a mine.
+//  mark a field as a mine.
 //    public void mark(int line, int col) {
 //        fields[line][col].setAppearance("*");
 //    }
 
     private int[][] getNearbyFields(int line, int col) {
-        // coordinates of neighbor fields
         int[][] allCoordinates = new int[][]{{line - 1, col - 1}, {line - 1, col},
                 {line - 1, col + 1}, {line, col - 1}, {line, col + 1}, {line + 1, col - 1}, {line + 1, col}, {line + 1, col + 1}};
-
-        // valid coordinates existing
         int numberOfValidCoordinates = 0;
         int[] indices = new int[8];
         int indicesIndex = 0;
@@ -145,20 +141,22 @@ public class GameFunc {
 //                "\n Select 'M' to mark a mine");
 //        String choice = scanner.next();
 //        System.out.print("x: ");
+        System.out.println("Enter your move (line, row ) ");
         int line = Integer.parseInt(scanner.next());
 //        System.out.print("y: ");
         int col = Integer.parseInt(scanner.next());
 //        System.out.println();
-//        if(choice.equals("e")) {
+//        if(choice.equals("E")) {
         explore(line, col);
-//        } else if (choice.equals("m")) {
+//        } else if (choice.equals("M")) {
 //            mark(x, y);
 //        }
     }
 
-    // displays all fields of the pitch with the indication of the coordinates
+
+    // displays all fields of the board with the coordinates
     public void display() {
-        // display x coordinates
+        System.out.println("Current Status of the Board: ");
         System.out.print("     ");
         for (int i = 0; i < maxSide; i++) {
             if (i < 10) {
@@ -177,7 +175,7 @@ public class GameFunc {
                     System.out.print(i + "   ");
                 }
                 for (int j = 0; j < maxSide; j++) {
-                    System.out.print(field[i][j].whenDestroyed() + "  ");
+                    System.out.print(field[i][j].lostGame() + "  ");
                 }
                 System.out.println("\n");
             }

@@ -28,7 +28,7 @@ public class GameBoard {
         }
     }
 
-    public String whenDestroyed() {
+    public String lostGame() {
         if (modifiedAppearance == null) {
             if (explored) {
                 return "X";
@@ -48,8 +48,6 @@ public class GameBoard {
     }
 
     public boolean isExplored() {
-        // if the field is mined and marked, it should show that the field is mined and
-        // delete the mark
         if (isMined()) {
             modifiedAppearance = null;
         }
